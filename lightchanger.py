@@ -14,8 +14,10 @@ async def lightOff(lightIP):
 async def lightColor(rgbw):
     pilot = PilotBuilder(rgbw=rgbw, brightness=BRIGHTNESS)
 
-    await lightOn(TOPLIGHT["IP"], pilot)
-    await lightOn(BOTLIGHT["IP"], pilot)
+    await asyncio.gather(
+        lightOn(TOPLIGHT["IP"], pilot), 
+        lightOn(BOTLIGHT["IP"], pilot)
+    )
 
 def changeLightColor(rgbw):
     loop = asyncio.get_event_loop()

@@ -2,15 +2,14 @@ import numpy as np
 import cv2
 from PIL import ImageGrab
 from constants import *
-from statistics import mode
-import time
 
 def get_color():
     img = ImageGrab.grab()
     imgNP = np.array(img)
 
-    # Take 10 random pixels from the image
+    # Take x random pixels from the image
     height, width, _ = imgNP.shape
+    np.random.seed(42) #makes the pixels more predictable to reduce flashing
     random_indices = np.random.randint(0, height * width, size=NUM_SAMPLES)
     sampled_pixels = imgNP.reshape(-1, 3)[random_indices]
 
